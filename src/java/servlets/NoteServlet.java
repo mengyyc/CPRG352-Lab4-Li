@@ -58,7 +58,10 @@ public class NoteServlet extends HttpServlet {
 
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		System.out.println(content);
+		for (char l : content.toCharArray()) {
+			System.out.print(l);
+		}
+		content = content.replace("\n", "<br>");
 		Note note = new Note(title, content);
 		request.setAttribute("note", note);
 		
