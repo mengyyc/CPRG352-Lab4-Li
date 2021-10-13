@@ -58,12 +58,6 @@ public class NoteServlet extends HttpServlet {
 
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		for (char l : content.toCharArray()) {
-			System.out.print(l);
-		}
-		content = content.replace("\n", "<br>");
-		Note note = new Note(title, content);
-		request.setAttribute("note", note);
 		
 		String path = getServletContext().getRealPath("/WEB-INF/note.txt");
 		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path,false)));
@@ -72,6 +66,10 @@ public class NoteServlet extends HttpServlet {
 		pw.write(content);
 		pw.flush();
 		pw.close();
+
+		content = content.replace("\n", "<br>");
+		Note note = new Note(title, content);
+		request.setAttribute("note", note);
 
 		getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request, response);
 	}
